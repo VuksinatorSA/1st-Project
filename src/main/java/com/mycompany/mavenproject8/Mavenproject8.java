@@ -4,150 +4,156 @@
 
 package com.mycompany.mavenproject8;
 
+import java.util.Scanner;
+import javax.swing.JOptionPane;
+
 /**
- *
  * @author RC_Student_lab
  */
 public class Mavenproject8 {
 
-public class Login {
+    public static class Login {
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        
-              String Username="";
-              String password ="";
-              String register="";
-              String login="";
-              String name ="";
-              String surname="";
-        
+        public static void main(String[] args) {
+            String Username = "";
+            String password = "";
+            String register = "";
+            String login = "";
+            String name = "";
+            String surname = "";
+
             Scanner sc = new Scanner(System.in);
-            
-              System.out.println("Welcome to Stratcom Solutions to sucessfully register your profile of us, kindly fill in the "
-                      + "required information");         
-              
-              System.out.println("Please enter your first name: ");
-              name=sc.nextLine();
-              System.out.print("Please enter your last name: ");
-              surname = sc.nextLine();
-              System.out.print("Please enter your username must contain an underscore : ");
-              checkUserName(Username);
-              
-              
-              
-                checkUserName(Username);
-                checkPasswordComplexity(password);
-                
-                registerUser(register);
-                LoginUser(login);
-                     
-    }
-    
-    public static boolean checkUserName (String username1){
-        
-         Scanner sc = new Scanner(System.in);
-    
-        //System.out.print("Please enter your username must contain an underscore : ");
-              String username = sc.nextLine();
-              int x=0;
-              String str="_";
-                   
-               if(username.contains(str)||username.length()<3){
-                   System.out.print("Username successfully captured");
-                   return true;
-               }else{
-                   System.out.println("Username is not correctly formatted please ensure that the username contain an underscore and is no more than 5 characters in length.");
-               return false;
-               } 
-                   
-          
-    }
-    
-    public static boolean checkPasswordComplexity(String password){
-    
-    String regex = "^(?=.[A-Z])(?=.[a-z])(?=.\\d)(?=.[^a-zA-Z\\d]).{8,}$";
-    Scanner sc = new Scanner(System.in);
-    System.out.print("Please enter your password: ");
-    String pass = sc.next();
-    
-    if(pass.matches(regex))
-    {
-        System.out.println("Password successfully captured");
-        return true;
-    }
-    else{
-        System.out.println("Password is not correctly formatted, please ensure that the password contains at least 8 characters, a capital letter, a number and a special character.");
-   return false;
-    }    
-   
-    
-    }
-    
-    public static String registerUser(String user ){
-           
-        String Username="";
-        String pass="";
-        
-        
-        
-    if(checkUserName(Username).matches(checkUserName(Username))||checkPasswordComplexity(pass))
-    {
-        System.out.println("Username is succussfully stored.");
-    }
-    else{
-        System.out.println("User can not be registered!!!");
-    }
-    
-    return user;
-}
-    
-    public static boolean LoginUser(String User){
-    
-       Scanner sc = new Scanner(System.in);
-       
 
-        
-        checkUserName(User);
-        checkPasswordComplexity(User);
-       
-        System.out.println("Welcome back Please enter your username:");
-        String Username =sc.nextLine();
-        
-        System.out.println("Please enter your password:");
-        String pass =sc.nextLine();
-        
-        
-        
-        
-        
-        if(Username.matches(checkUserName(Username))&&checkPasswordComplexity(pass)){
-            System.out.println("Successful login!!!");
-           return true;        
+            System.out.println("Welcome to Stratcom Solutions. To successfully register your profile with us, kindly fill in the required information.");
+
+            System.out.print("Please enter your first name: ");
+            name = sc.nextLine();
+            System.out.print("Please enter your last name: ");
+            surname = sc.nextLine();
+            System.out.print("Please enter your username (must contain an underscore): ");
+            Username = sc.nextLine();
+
+            if (checkUserName(Username) && checkPasswordComplexity(password)) {
+                registerUser(register);
+                loginUser(login);
+            }
         }
-        else{
-            System.out.println("incorrect username or Password!!!");
-             return false;
+
+        public static boolean checkUserName(String username) {
+            if (username.contains("_") && username.length() >= 3) {
+                System.out.println("Username successfully captured.");
+                return true;
+            } else {
+                System.out.println("Username is not correctly formatted. Please ensure that the username contains an underscore and is no less than 3 characters in length.");
+                return false;
+            }
+        }
+
+        public static boolean checkPasswordComplexity(String password) {
+            String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[^a-zA-Z\\d]).{8,}$";
+            Scanner sc = new Scanner(System.in);
+            System.out.print("Please enter your password: ");
+            password = sc.nextLine();
+
+            if (password.matches(regex)) {
+                System.out.println("Password successfully captured.");
+                return true;
+            } else {
+                System.out.println("Password is not correctly formatted. Ensure it has at least 8 characters, a capital letter, a number, and a special character.");
+                return false;
+            }
+        }
+
+        public static String registerUser(String user) {
+            String Username = "";
+            String pass = "";
+
+            if (checkUserName(Username) && checkPasswordComplexity(pass)) {
+                System.out.println("User successfully registered.");
+                return Username;
+            } else {
+                System.out.println("User cannot be registered!");
+                return "";
+            }
+        }
+
+        public static boolean loginUser(String user) {
+            Scanner sc = new Scanner(System.in);
+
+            System.out.print("Welcome back! Please enter your username: ");
+            String Username = sc.nextLine();
+
+            System.out.print("Please enter your password: ");
+            String password = sc.nextLine();
+
+            if (checkUserName(Username) && checkPasswordComplexity(password)) {
+                System.out.println("Successful login!");
+                return true;
+            } else {
+                System.out.println("Incorrect username or password.");
+                return false;
+            }
+        }
+
+        public static String returnLoginStatus() {
+            String names = "";
+            String surname = "";
+
+            if (checkUserName(names)) {
+                System.out.println("Welcome " + names + " " + surname + ", it is great to see you again.");
+                return names;
+            } else {
+                System.out.println("Username or password incorrect. Please try again.");
+                return "";
+            }
         }
     }
- 
-    public static String returnLoginStatus(){
-        
-        String names="";
-        String surname ="";
-        
-        checkUserName(names);
-    
-        if(checkUserName(names))
-       {
-        System.out.println("Welcome "+names+","+surname+"it is great to see you again");
+
+    public static class Task {
+        private final String taskName;
+        private final int taskNumber;
+        private final String taskDescription;
+        private final String developerFirstName;
+        private final String developerLastName;
+        private final int taskDuration;
+        private String taskStatus;
+
+        public Task(String taskName, int taskNumber, String taskDescription,
+                    String developerFirstName, String developerLastName, int taskDuration) {
+            this.taskName = taskName;
+            this.taskNumber = taskNumber;
+            this.taskDescription = taskDescription;
+            this.developerFirstName = developerFirstName;
+            this.developerLastName = developerLastName;
+            this.taskDuration = taskDuration;
         }
-        else {
-            System.out.println("Username or password incorrect please try again.");
+
+        public boolean checkTaskDescription() {
+            return taskDescription.length() <= 50;
         }
-    
-     return names; 
-     
+
+        public String createTaskID() {
+            String firstTwoLettersOfTaskName = taskName.substring(0, 2).toUpperCase();
+            String lastThreeLettersOfDeveloper = developerLastName.length() >= 3 ? developerLastName.substring(developerLastName.length() - 3).toUpperCase() : "XXX";
+            return firstTwoLettersOfTaskName + ":" + taskNumber + ":" + lastThreeLettersOfDeveloper;
+        }
+
+        public String printTaskDetails() {
+            return "Task Status: " + taskStatus + "\n" +
+                   "Developer: " + developerFirstName + " " + developerLastName + "\n" +
+                   "Task Number: " + taskNumber + "\n" +
+                   "Task Name: " + taskName + "\n" +
+                   "Task Description: " + taskDescription + "\n" +
+                   "Task ID: " + createTaskID() + "\n" +
+                   "Task Duration: " + taskDuration + " hours";
+        }
+
+        public int returnTotalHours() {
+            return taskDuration;
+        }
+
+        public void setTaskStatus(String status) {
+            this.taskStatus = status;
+        }
     }
+}
