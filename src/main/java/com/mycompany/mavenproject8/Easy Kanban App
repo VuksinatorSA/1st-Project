@@ -1,1 +1,76 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ */
+
+package com.mycompany.mavenproject3;
+
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
+/**
+ *import javax.swing.JOptionPane;
+import java.util.ArrayList;
+ * @author RC_Student_lab
+ */
+
+public class EasyKanbanApp {
+    public static void main(String[] args) {
+        // Login simulation
+        String username = JOptionPane.showInputDialog("Enter your username:");
+        String password = JOptionPane.showInputDialog("Enter your password:");
+
+        if (!isValidLogin(username, password)) {
+            JOptionPane.showMessageDialog(null, "Invalid login credentials.");
+            return;
+        }
+
+        JOptionPane.showMessageDialog(null, "Welcome to EasyKanban");
+
+        // Number of tasks
+        int numTasks = Integer.parseInt(JOptionPane.showInputDialog("How many tasks do you want to add?"));
+        ArrayList<Task> tasks = new ArrayList<>();
+        int totalHours = 0;
+
+        // Task creation loop
+        for (int i = 0; i < numTasks; i++) {
+            String taskName = JOptionPane.showInputDialog("Enter task name:");
+            String taskDescription = JOptionPane.showInputDialog("Enter task description (max 50 characters):");
+            if (taskDescription.length() > 50) {
+                JOptionPane.showMessageDialog(null, "Please enter a task description of less than 50 characters.");
+                i--; // Retry the current task input
+                continue;
+            }
+
+            String developerFirstName = JOptionPane.showInputDialog("Enter developer first name:");
+            String developerLastName = JOptionPane.showInputDialog("Enter developer last name:");
+            int taskDuration = Integer.parseInt(JOptionPane.showInputDialog("Enter task duration in hours:"));
+
+            Task task = new Task(taskName, i, taskDescription, developerFirstName, developerLastName, taskDuration);
+            task.setTaskStatus(selectTaskStatus());
+            tasks.add(task);
+            totalHours += task.returnTotalHours();
+
+            // Display task details
+            JOptionPane.showMessageDialog(null, task.printTaskDetails());
+        }
+
+        // Show total hours
+        JOptionPane.showMessageDialog(null, "Total hours for all tasks: " + totalHours);
+    }
+
+    // Simple login validation (you can improve this)
+    public static boolean isValidLogin(String username, String password) {
+        return "admin".equals(username) && "password123".equals(password); // Hardcoded login check
+    }
+
+    // Select task status
+    public static String selectTaskStatus() {
+        String[] options = {"To Do", "Doing", "Done"};
+        int choice = JOptionPane.showOptionDialog(null, "Select task status:", "Task Status", 
+                                                  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, 
+                                                  null, options, options[0]);
+        return options[choice];
+    }
+    
+}
 
