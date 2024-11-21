@@ -1,1 +1,32 @@
+public static void populateTestData() {
+    // Task 1
+    developers.add("Mike Smith");
+    taskNames.add("Create Login");
+    taskDurations.add(5);
+    taskStatuses.add("To Do");
+    taskIDs.add("CL_1");
+
+    // Task 2
+    developers.add("Edward Harrison");
+    taskNames.add("Create Add Features");
+    taskDurations.add(8);
+    taskStatuses.add("Doing");
+    taskIDs.add("CA_2");
+
+    // Task 3
+    developers.add("Samantha Paulson");
+    taskNames.add("Create Reports");
+    taskDurations.add(2);
+    taskStatuses.add("Done");
+    taskIDs.add("CR_3");
+
+    // Task 4
+    developers.add("Glenda Oberholzer");
+    taskNames.add("Add Arrays");
+    taskDurations.add(11);
+    taskStatuses.add("To Do");
+    taskIDs.add("AA_4");
+
+    System.out.println("Test data populated successfully.");
+}
 
