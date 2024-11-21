@@ -1,0 +1,88 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+public class TaskManagerTest {
+
+    @BeforeEach
+    public void setup() {
+        // Clear and populate arrays with test data before each test
+        TaskManager.developers.clear();
+        TaskManager.taskNames.clear();
+        TaskManager.taskIDs.clear();
+        TaskManager.taskDurations.clear();
+        TaskManager.taskStatuses.clear();
+        TaskManager.populateTestData();
+    }
+
+    @Test
+    public void testDeveloperArrayCorrectlyPopulated() {
+        // Expected developer array
+        String[] expectedDevelopers = {"Mike Smith", "Edward Harrison", "Samantha Paulson", "Glenda Oberholzer"};
+        assertEquals(4, TaskManager.developers.size());
+        assertArrayEquals(expectedDevelopers, TaskManager.developers.toArray());
+    }
+
+    @Test
+    public void testLongestTaskDeveloperAndDuration() {
+        // Find task with the longest duration
+        int maxDurationIndex = TaskManager.taskDurations.indexOf(11); // Longest duration
+        assertEquals("Glenda Oberholzer", TaskManager.developers.get(maxDurationIndex));
+        assertEquals(11, TaskManager.taskDurations.get(maxDurationIndex));
+    }
+
+    @Test
+    public void testSearchTaskByName() {
+        // Search for "Create Login"
+        int index = TaskManager.taskNames.indexOf("Create Login");
+        assertNotEquals(-1, index); // Ensure the task exists
+        assertEquals("Mike Smith", TaskManager.developers.get(index));
+        assertEquals("Create Login", TaskManager.taskNames.get(index));
+    }
+
+    @Test
+    public void testSearchTasksByDeveloper() {
+        // Search for all tasks assigned to "Samantha Paulson"
+        String developer = "Samantha Paulson";
+        int index = TaskManager.developers.indexOf(developer);
+
+        assertNotEquals(-1, index); // Ensure the developer exists
+        assertEquals("Create Reports", TaskManager.taskNames.get(index));
+        assertEquals("Done", TaskManager.taskStatuses.get(index));
+    }
+
+    @Test
+    public void testDeleteTaskByName() {
+        // Delete "Create Reports"
+        String taskToDelete = "Create Reports";
+        int index = TaskManager.taskNames.indexOf(taskToDelete);
+
+        assertNotEquals(-1, index); // Ensure the task exists
+        TaskManager.developers.remove(index);
+        TaskManager.taskNames.remove(index);
+        TaskManager.taskIDs.remove(index);
+        TaskManager.taskDurations.remove(index);
+        TaskManager.taskStatuses.remove(index);
+
+        // Verify deletion
+        assertFalse(TaskManager.taskNames.contains(taskToDelete));
+        System.out.println("Entry 'Create Reports' successfully deleted.");
+    }
+
+    @Test
+    public void testDisplayReport() {
+        // Expected report content
+        String[] expectedTaskIDs = {"CL_1", "CA_2", "CR_3", "AA_4"};
+        String[] expectedDevelopers = {"Mike Smith", "Edward Harrison", "Samantha Paulson", "Glenda Oberholzer"};
+        String[] expectedTaskNames = {"Create Login", "Create Add Features", "Create Reports", "Add Arrays"};
+        int[] expectedDurations = {5, 8, 2, 11};
+        String[] expectedStatuses = {"To Do", "Doing", "Done", "To Do"};
+
+        assertArrayEquals(expectedTaskIDs, TaskManager.taskIDs.toArray());
+        assertArrayEquals(expectedDevelopers, TaskManager.developers.toArray());
+        assertArrayEquals(expectedTaskNames, TaskManager.taskNames.toArray());
+        assertArrayEquals(expectedDurations, TaskManager.taskDurations.stream().mapToInt(Integer::intValue).toArray());
+        assertArrayEquals(expectedStatuses, TaskManager.taskStatuses.toArray());
+    }
+}
